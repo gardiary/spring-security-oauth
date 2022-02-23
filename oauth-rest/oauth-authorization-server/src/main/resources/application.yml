@@ -7,6 +7,10 @@ spring:
   datasource:
     username: sa
     url: jdbc:h2:mem:customdb
+  h2:
+    console:
+      enabled: true
+      path: /h2
 
 keycloak:
   server:
