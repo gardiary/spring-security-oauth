@@ -15,13 +15,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/user/info", "/api/foos/**")
                   .hasAuthority("SCOPE_read")
+                .antMatchers(HttpMethod.GET, "/api/secured/foos/**")
+                    .hasAuthority("SCOPE_superuser")
                 .antMatchers(HttpMethod.POST, "/api/foos")
                   .hasAuthority("SCOPE_write")
                 .anyRequest()
                   .authenticated()
             .and()
               .oauth2ResourceServer()
-                .jwt();
+                .jwt()
+                .jwtAuthenticationConverter(new CustomAuthoritiesConverter());
     }//@formatter:on
-
 }

@@ -6,10 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
 
-/**
- * User: gardiary
- * Date: 23/02/22, 12.22
- */
 @Configuration
 public class CustomClaimsValidatorConfig {
     private static final String SLASH_ALL = "/*";
@@ -20,9 +16,10 @@ public class CustomClaimsValidatorConfig {
         final var customClaimsValidatorFilter = new CustomClaimsValidatorFilter();
         final var filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(customClaimsValidatorFilter);
-        filterRegistrationBean.setOrder(2);
+        filterRegistrationBean.setOrder(0);
         filterRegistrationBean.setUrlPatterns(Arrays.asList(
-                "/api/foos" + SLASH_ALL
+                "/api/foos" + SLASH_ALL,
+                "/api/secured/foos" + SLASH_ALL
         ));
         return filterRegistrationBean;
     }

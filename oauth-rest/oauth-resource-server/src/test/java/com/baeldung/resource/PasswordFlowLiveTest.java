@@ -43,6 +43,24 @@ public class PasswordFlowLiveTest {
 		assertNotNull(fooResponse.jsonPath().get("name"));
 	}
 
+	@Test
+	public void givenUser_whenUseFooClient_securedFoosResourceUserFailed() {
+		final String accessToken = obtainAccessToken(CLIENT_ID, USERNAME1, PASSWORD1);
+
+		final Response fooResponse = RestAssured.given().header("Authorization", "Bearer " + accessToken)
+				.get(RESOURCE_SERVER + "/api/secured/foos");
+		assertEquals(403, fooResponse.getStatusCode());
+	}
+
+	@Test
+	public void givenUser_whenUseFooClient_securedFoosResourceUserSuccess() {
+		final String accessToken = obtainAccessToken(CLIENT_ID, USERNAME2, PASSWORD2);
+
+		final Response fooResponse = RestAssured.given().header("Authorization", "Bearer " + accessToken)
+				.get(RESOURCE_SERVER + "/api/secured/foos");
+		assertEquals(200, fooResponse.getStatusCode());
+	}
+
 	private String obtainAccessToken(String clientId, String username, String password) {
 		final Map<String, String> params = new HashMap<String, String>();
 		params.put("grant_type", "password");

@@ -11,6 +11,9 @@ import {AppService} from './app.service'
         <a class="btn btn-default pull-right"(click)="logout()" href="#">Logout</a>
         <br/>
         <foo-details></foo-details>
+        <br/>
+        <br/>
+        <foos-details></foos-details>
     </div>
 </div>`
 })

@@ -11,12 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * User: gardiary
- * Date: 23/02/22, 12.00
- */
 public class CustomClaimsValidatorFilter extends OncePerRequestFilter {
-    private static final String EMAIL_DOMAIN = "@baeldung.com";
+    public static final String EMAIL_DOMAIN = "@baeldung.com";
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
@@ -24,10 +20,9 @@ public class CustomClaimsValidatorFilter extends OncePerRequestFilter {
         String preferredUsername = principal.getClaimAsString("preferred_username");
 
         if(!preferredUsername.endsWith(EMAIL_DOMAIN)) {
-            System.out.println("User email domain is not from " + EMAIL_DOMAIN);
+            System.out.println("User email is not from " + EMAIL_DOMAIN);
             throw new OAuth2AuthenticationException("User unauthorized!");
         }
-
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }
